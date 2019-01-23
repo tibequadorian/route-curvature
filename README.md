@@ -16,14 +16,16 @@ $ make
 ## Usage
 
 ```
-route-curvature [options] file
+route-curvature [options] -i file
 
 Options:
+-h, --help          prints this help message and exit
 -s, --smoothness    number of points to calculate curvature from.
                     The more points, the smoother the output gets.
                     (Default value: 5)
 -t                  treat input values as cartesic coordinates instead of
                     using mercator projection on geographic coordinates
+-i, --input         input file
 -o, --output        output file
 ```
 

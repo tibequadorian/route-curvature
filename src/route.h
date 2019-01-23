@@ -5,5 +5,3 @@ struct Coordinate {
     double lon;
 };
 
-double** get_curvature(struct Coordinate* coordinates, unsigned int size);
-
