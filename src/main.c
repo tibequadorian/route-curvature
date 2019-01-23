@@ -75,38 +75,35 @@ int main(int argc, char *argv[]) {
                         "Usage: route-curvature [options] -i file\n");
         return 1;
     }
-    // read input file
+    // read input
     unsigned int length = 0, max_length = DATA_ALLOC_SIZE;
-    double** data = (double**)malloc(max_length*sizeof(double*));
+    struct Vector* data = (struct Vector*)malloc(max_length*sizeof(struct Vector));
     char* line = malloc(LINE_ALLOC_SIZE*sizeof(char));
-    double lat, lon;
     while (!feof(input)) {
-        if (fgets(line, LINE_ALLOC_SIZE, input) == NULL)
-            continue;
-        if (sscanf(line, "%lf %lf", &lat, &lon) != 2)
+        struct Vector d;
+        if (fgets(line, LINE_ALLOC_SIZE, input) == NULL ||
+                 sscanf(line, "%lf %lf", &d.x, &d.y) != 2)
             continue;
         if (length == max_length) {
             max_length += DATA_ALLOC_SIZE;
-            data = (double**)realloc(data, max_length*sizeof(double*));
+            data = (struct Vector*)realloc(data, max_length*sizeof(struct Vector));
         }
-        data[length] = (double*)malloc(2*sizeof(double));
-        data[length][0] = lat;
-        data[length][1] = lon;
-        length++;
+        memcpy((struct Vector*)(data+length++), &d, sizeof(struct Vector));
     }
     free(line);
-    data = (double**)realloc(data, length*sizeof(double*));
+    data = (struct Vector*)realloc(data, length*sizeof(struct Vector));
     // calculate curvature and print result
-    unsigned int result_length;
-    double** result_data = calc_curvature(data, length, true_input, &result_length);
-    for (unsigned int i = 0; i < result_length; i++)
-        fprintf(output, "%lf %lf\n", result_data[i][0], result_data[i][1]);
+    int result_length = length-smoothness+1;
+    if (result_length <= 0) {
+        fprintf(stderr, "ERROR: empty result\n"
+                        "not enough waypoints on route or smoothness value too high?\n");
+        return 1;
+    }
+    struct Vector* result_data = calc_curvature(data, length, true_input, smoothness);
+    for (int i = 0; i < result_length; i++)
+        fprintf(output, "%lf %lf\n", result_data[i].x, result_data[i].y); 
     // free allocated memory
-    for (unsigned int i = 0; i < length; i++)
-        free(data[i]);
     free(data);
-    for (unsigned int i = 0; i < result_length; i++)
-        free(result_data[i]);
     free(result_data);
     return 0;
 }

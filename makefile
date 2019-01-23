@@ -1,6 +1,6 @@
 CC       = gcc
 CFLAGS   = -Wall
-LDFLAGS  =
+LDFLAGS  = -lm
 OBJFILES = src/route.o src/main.o
 TARGET   = route-curvature
 
