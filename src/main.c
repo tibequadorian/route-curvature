@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
-#include <stdbool.h>
 #include <string.h>
 
 #include "route.h"
+
+#define DATA_ALLOC_SIZE 128
+#define LINE_ALLOC_SIZE 32
 
 
 static const char* help = "Usage: route-curvature [options] -i file\n"
@@ -73,7 +75,39 @@ int main(int argc, char *argv[]) {
                         "Usage: route-curvature [options] -i file\n");
         return 1;
     }
-    // TODO
+    // read input file
+    unsigned int length = 0, max_length = DATA_ALLOC_SIZE;
+    double** data = (double**)malloc(max_length*sizeof(double*));
+    char* line = malloc(LINE_ALLOC_SIZE*sizeof(char));
+    double lat, lon;
+    while (!feof(input)) {
+        if (fgets(line, LINE_ALLOC_SIZE, input) == NULL)
+            continue;
+        if (sscanf(line, "%lf %lf", &lat, &lon) != 2)
+            continue;
+        if (length == max_length) {
+            max_length += DATA_ALLOC_SIZE;
+            data = (double**)realloc(data, max_length*sizeof(double*));
+        }
+        data[length] = (double*)malloc(2*sizeof(double));
+        data[length][0] = lat;
+        data[length][1] = lon;
+        length++;
+    }
+    free(line);
+    data = (double**)realloc(data, length*sizeof(double*));
+    // calculate curvature and print result
+    unsigned int result_length;
+    double** result_data = calc_curvature(data, length, true_input, &result_length);
+    for (unsigned int i = 0; i < result_length; i++)
+        fprintf(output, "%lf %lf\n", result_data[i][0], result_data[i][1]);
+    // free allocated memory
+    for (unsigned int i = 0; i < length; i++)
+        free(data[i]);
+    free(data);
+    for (unsigned int i = 0; i < result_length; i++)
+        free(result_data[i]);
+    free(result_data);
     return 0;
 }
 
