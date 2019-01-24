@@ -1,7 +1,7 @@
 CC       = gcc
 CFLAGS   = -Wall
 LDFLAGS  = -lm
-OBJFILES = src/route.o src/main.o
+OBJFILES = src/vector.o src/route.o src/main.o
 TARGET   = route-curvature
 
 all: $(TARGET)

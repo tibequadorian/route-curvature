@@ -20,15 +20,24 @@ struct Vector* calc_curvature(struct Vector* data, unsigned int length, bool tru
 }
 
 void apply_mercator_projection(struct Vector* v) {
-    v->x *= M_PI / 180;
-    v->y = asinh(tan(v->y * (M_PI / 180)));
+    double lat = v->x, lon = v->y;
+    v->x = lon*(M_PI/180);
+    v->y = asinh(tan(lat*(M_PI/180)));
 }
 
-double distance(struct Vector* v1, struct Vector* v2) {
-    return hypot(v1->x-v2->x, v1->y-v2->y);
-}
-
-double get_curvature(struct Vector* v, unsigned int n) {
+double get_curvature(struct Vector* v0, unsigned int n) {
+    // TODO
     return 0.;
+}
+
+struct Vector get_center(struct Vector* v1, struct Vector* v2, double r) {
+    struct Vector v = subtract(v1, v2);
+    v = multiply(&v, 0.5);
+    double d = length(&v);
+    double sign = copysign(1.0, r);
+    struct Vector u = { sign*v.y, -sign*v.x };
+    u = scale(&u, sin(acos(d/r)*r));
+    v = add(&v, &u);
+    return add(v1, &v);
 }
 
