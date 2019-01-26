@@ -11,7 +11,9 @@ struct Vector* calc_curvature(struct Vector* data, unsigned int length, bool tru
 
 void apply_mercator_projection(struct Vector* v);
 
-double get_curvature(struct Vector* v, unsigned int n);
+double get_curvature(struct Vector* v1, struct Vector* vn);
+
+double get_deviation(struct Vector* v1, struct Vector* vn, double c);
 
 struct Vector get_center(struct Vector* v1, struct Vector* v2, double r);
 
