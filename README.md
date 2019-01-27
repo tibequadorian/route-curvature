@@ -43,18 +43,23 @@ gnuplot> plot "examples/maglev_out.dat" using 1:2 with lines
 
 Let _d_ be the distance between the first and last point of a route segment consisting of _n_ points.
 
-![route1](https://raw.githubusercontent.com/bluntphenomena/route-curvature/master/documentation/route1.png)
+![how1](https://raw.githubusercontent.com/bluntphenomena/route-curvature/master/documentation/route1.png)
 
 Find a circle with radius _r_ that goes best through the points of the route segment.
 The smallest possible radius is half of the distance between the first and last point.
 
-![route4](https://raw.githubusercontent.com/bluntphenomena/route-curvature/master/documentation/route4.png)
+![how2](https://raw.githubusercontent.com/bluntphenomena/route-curvature/master/documentation/route4.png)
 
 The largest value for the radius is infinite, that is a straight line.
 
-![route3](https://raw.githubusercontent.com/bluntphenomena/route-curvature/master/documentation/route3.png)
+![how3](https://raw.githubusercontent.com/bluntphenomena/route-curvature/master/documentation/route3.png)
 
-So the radius takes values _d_/2 ≤ _r_ ≤ ∞ and because the curvature _c_ = 1/_r_ it is 0 ≤ _c_ ≤ 2/_d_ .
+So _r_ is in range [_d_/2, ∞].
+And because the curvature _c_ = 1/_r_, the possible values for _c_ are [0, 2/_d_]
+
+A model graph of how the deviation between the route segment and the circle with radius _r_=1/_c_ relates on the curvature value.
+
+![how4](https://raw.githubusercontent.com/bluntphenomena/route-curvature/master/documentation/graph.png)
 
 # License
 
