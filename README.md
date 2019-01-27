@@ -29,6 +29,8 @@ Options:
 -o, --output        output file
 ```
 
+### Example
+
 ```
 $ ./route-curvature -s10 -i examples/maglev.dat -o examples/maglev_out.dat
 $ gnuplot
