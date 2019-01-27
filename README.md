@@ -45,6 +45,17 @@ Let _d_ be the distance between the first and last point of a route segment cons
 
 ![route1](https://raw.githubusercontent.com/bluntphenomena/route-curvature/master/documentation/route1.png)
 
+Find a circle with radius _r_ that goes best through the points of the route segment.
+The smallest possible radius is half of the distance between the first and last point.
+
+![route4](https://raw.githubusercontent.com/bluntphenomena/route-curvature/master/documentation/route4.png)
+
+The largest value for the radius is infinite, that is a straight line.
+
+![route3](https://raw.githubusercontent.com/bluntphenomena/route-curvature/master/documentation/route3.png)
+
+So the radius takes values _d_/2 ≤ _r_ ≤ ∞ and because the curvature _c_ = 1/_r_ it is 0 ≤ _c_ ≤ 2/_d_ .
+
 # License
 
             DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
