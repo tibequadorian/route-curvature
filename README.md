@@ -35,6 +35,8 @@ $ gnuplot
 gnuplot> plot "examples/maglev_out.dat" using 1:2 with lines
 ```
 
+![graph](https://raw.githubusercontent.com/bluntphenomena/route-curvature/master/examples/maglev_graph.png)
+
 ## How it works
 
 TODO
