@@ -29,6 +29,12 @@ Options:
 -o, --output        output file
 ```
 
+```
+$ ./route-curvature -s10 -i examples/maglev.dat -o examples/maglev_out.dat
+$ gnuplot
+gnuplot> plot "examples/maglev_out.dat" using 1:2 with lines
+```
+
 ## How it works
 
 TODO
