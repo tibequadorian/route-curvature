@@ -7,19 +7,19 @@ struct Vector {
     double y;
 };
 
-struct Vector add(struct Vector* v1, struct Vector* v2);
+void add(struct Vector* v1, struct Vector* v2, struct Vector* r);
 
-struct Vector subtract(struct Vector* v1, struct Vector* v2);
+void subtract(struct Vector* v1, struct Vector* v2, struct Vector* r);
 
-struct Vector multiply(struct Vector* v, double factor);
+void multiply(struct Vector* v, double factor, struct Vector* r);
 
 double norm(struct Vector* v);
 
 double distance(struct Vector* v1, struct Vector* v2);
 
-struct Vector normalize(struct Vector* v);
+void normalize(struct Vector* v, struct Vector* r);
 
-struct Vector scale(struct Vector* v, double length);
+void scale(struct Vector* v, double length, struct Vector* r);
 
 double cross_product_norm(struct Vector* v1, struct Vector* v2);
 

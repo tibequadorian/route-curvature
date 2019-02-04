@@ -37,14 +37,17 @@ double get_deviation(struct Vector* v1, struct Vector* vn, double c) {
     double deviation = 0;
     if (c != 0) { // circle
         double r = 1/c;
-        struct Vector center = get_center(v1, vn, r);
+        struct Vector center;
+        get_center(v1, vn, r, &center);
         for (struct Vector* v = v1; v <= vn; v++) {
             deviation += fabs(distance(v, &center)-fabs(r));
         }
     } else { // line
-        struct Vector u = subtract(vn, v1);
+        struct Vector u;
+        subtract(vn, v1, &u);
         for (struct Vector* v = v1; v <= vn; v++) {
-            struct Vector p = subtract(v, v1);
+            struct Vector p;
+            subtract(v, v1, &p);
             deviation += fabs(cross_product_norm(&p, &u)/norm(&u));
         }
     }
@@ -54,13 +57,14 @@ double get_deviation(struct Vector* v1, struct Vector* vn, double c) {
 
 extern void find_nearest_curvature(struct Vector* v1, struct Vector* vn, double min, double max, double* curvature, double* deviation);
 
-struct Vector get_center(struct Vector* v1, struct Vector* v2, double r) {
-    struct Vector v = subtract(v2, v1);
-    v = multiply(&v, 0.5);
+void get_center(struct Vector* v1, struct Vector* v2, double r, struct Vector* center) {
+    struct Vector v;
+    subtract(v2, v1, &v);
+    multiply(&v, 0.5, &v);
     double d = norm(&v);
     struct Vector u = { v.y, -v.x };
-    u = scale(&u, sin(acos(d/r))*r);
-    v = add(&v, &u);
-    return add(v1, &v);
+    scale(&u, sin(acos(d/r))*r, &u);
+    add(&v, &u, &v);
+    add(v1, &v, center);
 }
 

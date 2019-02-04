@@ -26,5 +26,5 @@ inline void find_nearest_curvature(struct Vector* v1, struct Vector* vn, double 
     }
 }
 
-struct Vector get_center(struct Vector* v1, struct Vector* v2, double r);
+void get_center(struct Vector* v1, struct Vector* v2, double r, struct Vector* center);
 
