@@ -16,7 +16,6 @@ double get_curvature(struct Vector* v1, struct Vector* vn);
 
 double get_deviation(struct Vector* v1, struct Vector* vn, double c);
 
-#include <stdio.h>
 inline void find_nearest_curvature(struct Vector* v1, struct Vector* vn, double min, double max, double* nearest_curvature, double* nearest_deviation) {
     for (double i = min; fabs(i) < fabs(max); i += (max-min)/1000) {
         if (get_deviation(v1, vn, i) < *nearest_deviation) {
@@ -27,4 +26,3 @@ inline void find_nearest_curvature(struct Vector* v1, struct Vector* vn, double 
 }
 
 void get_center(struct Vector* v1, struct Vector* v2, double r, struct Vector* center);
-
