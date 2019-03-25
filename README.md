@@ -2,7 +2,7 @@
 
 A small and flexible tool written in C to calculate the curvature of a route.
 
-Takes space separated data file as input, but also includes python script to convert GPX in a readable format.
+Takes space separated data file as input, but also includes script to convert GPX in a readable format. (TODO)
 Output is a space separated data file as well, ready to be plotted by gnuplot or similar software.
 
 ## Installation
