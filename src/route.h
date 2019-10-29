@@ -17,11 +17,20 @@ double get_curvature(struct Vector* v1, struct Vector* vn);
 double get_deviation(struct Vector* v1, struct Vector* vn, double c);
 
 inline void find_nearest_curvature(struct Vector* v1, struct Vector* vn, double min, double max, double* nearest_curvature, double* nearest_deviation) {
-    for (double i = min; fabs(i) < fabs(max); i += (max-min)/1000) {
-        if (get_deviation(v1, vn, i) < *nearest_deviation) {
-            *nearest_curvature = i;
-            *nearest_deviation = get_deviation(v1, vn, i);
+    const static double delta = 1E-12; // hard-coded accuracy
+    double c, d;
+    while (fabs(min-max)/2 > delta) {
+        double step = (1.0/4)*(max-min);
+        for (int q = 1; q < 4; q++) {
+            c = min+q*step;
+            d = get_deviation(v1, vn, c);
+            if (d < *nearest_deviation) {
+                *nearest_deviation = d;
+                *nearest_curvature = c;
+            }
         }
+        min = *nearest_curvature-step;
+        max = *nearest_curvature+step;
     }
 }
 
