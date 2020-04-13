@@ -41,7 +41,7 @@ gnuplot> plot "examples/maglev_out.dat" using 1:2 with lines
 
 ## How it works
 
-Let _d_ be the distance between the first and last point of a route segment consisting of _n_ points. (_n_ can be modified with the '--smoothness' option)
+Let _d_ be the distance between the first and last point of a route segment consisting of _n_ points. (_n_ can be modified with the `--smoothness` option)
 
 ![how1](https://raw.githubusercontent.com/bluntphenomena/route-curvature/master/documentation/route1.png)
 
